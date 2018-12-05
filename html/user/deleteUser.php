@@ -1,4 +1,8 @@
 <?php
+//page with a confirm delete functionality. 
+//TO-DO: Make into a modal instead of separate page?
+
+
 session_start();
 if ($_SESSION['user'] != 'admin') {
     header('Location: showApplications.php');
@@ -50,7 +54,6 @@ if ($result->num_rows == 1) {
             <p id="response">Are you sure that you want to delete <?php echo $leg?>?
             
             <input type='button' value='Yes' onclick='deleteUser("<?php echo $email?>")' >
-            <input type='submit' value='No' href="editLegislators.php"></br>
 
         </form>
     </body>

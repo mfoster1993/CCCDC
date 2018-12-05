@@ -1,4 +1,7 @@
 <?php
+//page that gets info from user to be used to update the budget of a legislator
+//TO-DO: use as modal instrad of page
+
 session_start();
 if ($_SESSION['user'] != 'admin') {
     header('Location: showApplications.php');

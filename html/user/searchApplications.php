@@ -1,11 +1,26 @@
 <?php
-
+//performs the search and passes the results to search.php for display
 session_start();
+if (!isset($_SESSION["user"])) {
+    header("Location: login.php");
+    exit;
+}
+
+
+function processText($text) {
+    $text = strip_tags($text);
+    $text = trim($text);
+    $text = htmlspecialchars($text);
+    return $text;
+}
+//resets application id stored in the session
+unset($_SESSION['app_id']);
 require 'dbconnect.php';
 
-$year = $_GET['year'];
-$org = $_GET['org'];
+$year = processText($_GET['year']);
+$org = processText($_GET['org']);
 
+//sets sql statement based on options selected oon search.php
 if ($year == $org) {
     $sql = "SELECT * FROM `Applications`";
 } else if ($org == 'all') {
@@ -18,12 +33,14 @@ if ($year == $org) {
 
 $results = $conn->query($sql);
 
+//displays table of applications
 if ($results->num_rows > 0) {
 
     echo "<div class='appTable'><table><tr>"
             . "<th>ID</th>"
             . "<th>Organization</th>"
             . "<th>Amount Requested</th>"
+            . "<th>Amount Given</th>"
             . "<th>Legislator</th>"
             . "</tr>";
     while ($row = $results->fetch_assoc()) {
@@ -32,6 +49,7 @@ if ($results->num_rows > 0) {
         echo "<td> <a href='getApplication.php?id=$id'> $id </td>";
         echo "<td>" . $row['organization'] . "</td>";
         echo "<td>" . $row['amount_requested'] . "</td>";
+        echo "<td>" . $row['amount_given'] . "</td>";
         echo "<td>" . $row['legislator'] . "</td>";
         echo "</tr>";
     }

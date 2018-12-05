@@ -1,12 +1,19 @@
 <?php
+//deletes the user from legislator table and user table
 
 session_start();
 if ($_SESSION['user'] != 'admin') {
     header('Location: showApplications.php');
 }
 
+function processText($text) {
+    $text = strip_tags($text);
+    $text = trim($text);
+    $text = htmlspecialchars($text);
+    return $text;
+}
 
-$email = $_GET['email'];
+$email = processText($_GET['email']);
 require 'dbconnect.php';
 
 

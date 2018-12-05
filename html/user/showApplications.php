@@ -1,4 +1,5 @@
 <?php
+//displays all of the current applications 
 
 session_start();
 if (!isset($_SESSION["user"])) {
@@ -6,6 +7,8 @@ if (!isset($_SESSION["user"])) {
     exit;
 }
 
+//resets application id stored in the session
+unset($_SESSION['app_id']);
 require 'dbconnect.php';
 
 $sql = "SELECT * FROM  `Applications` WHERE `status` <> 'closed' ORDER BY `status` DESC";
@@ -20,6 +23,7 @@ print "<!DOCTYPE html>"
 include 'nav_bar.php';
 echo "<h2>Current Applications</h2>";
 
+//displays a table of applications
 if ($results->num_rows > 0) {
 
     echo "<div class='appTable'><table><tr>"

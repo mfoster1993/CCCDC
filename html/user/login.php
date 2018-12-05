@@ -1,4 +1,5 @@
 <?php
+//form for login
 session_start();
 ?>
 <!DOCTYPE html>
