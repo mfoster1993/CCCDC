@@ -1,4 +1,5 @@
 <?php
+//connection to database 
 
 $dbname = 'CCCDC';
 $server = 'localhost';
